@@ -1,7 +1,10 @@
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-engine = create_engine('sqlite:///users.db', echo=True)
+engine = create_engine('sqlite:///users.db', echo=False)
+Session = sessionmaker(bind=engine)
+session = Session()
 Base = declarative_base()
 
 class User(Base):
@@ -17,3 +20,22 @@ class User(Base):
 
 if __name__ == '__main__':
     Base.metadata.create_all(engine)
+
+    # kyle_user = User(name='Kyle', fullname='Kyle Clark', nickname='Blue')
+    # print(kyle_user.name)
+    # print(kyle_user.id)
+    # session.add(kyle_user)
+    # session.commit()
+    # print(kyle_user)
+
+    # new_users = [
+    #     User(name='Grace', fullname='Grace Hopper', nickname='Pioneer'), 
+    #     User(name='Alan', fullname='Alan Turing', nickname='Computer Scientist'),  
+    #     User(name='Katherine', fullname='Katherine Johnson', nickname='') 
+    #     ]
+
+    # session.add_all(new_users)
+    # session.commit()
+
+    # for user in new_users:
+    #     print(user.id)
